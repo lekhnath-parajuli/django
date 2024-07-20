@@ -29,6 +29,7 @@ class User(SerializerBase):
     email: str
     phone_number: str
 
+
 class Contact(SerializerBase):
     id: Union[uuid.UUID, None] = None
     name: str
