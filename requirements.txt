@@ -1,2 +1,4 @@
 django==5.0.7
 django-livesync==0.5
+pydantic==2.8.2
+case-changer==0.1.0
