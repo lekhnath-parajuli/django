@@ -11,6 +11,11 @@ class SerializerBase(BaseModel):
         populate_by_name = True
 
 
+class Login(SerializerBase):
+    name: str
+    password: str
+
+
 class Registration(SerializerBase):
     name: Union[str]
     password: str
