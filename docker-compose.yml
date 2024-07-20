@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
-    command: python -m manage runserver 0.0.0.0:8000
+    command: sh /api/start.sh
     ports:
       - "8000:8000"
     networks:
