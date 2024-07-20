@@ -8,6 +8,8 @@ COPY requirements.txt requirements.txt
 RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . .
 
+RUN python -m manage makemigrations
+RUN python -m manage migrate
 RUN python -m manage makemigrations user
 RUN python -m manage makemigrations search
 RUN python -m manage migrate user

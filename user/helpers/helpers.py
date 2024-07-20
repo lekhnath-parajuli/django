@@ -22,6 +22,13 @@ def generate_jwt_token(user_id):
 
 def validate_access_token(func) -> Tuple[bool, uuid.UUID]:
     def validator(request, **kwargs) -> Tuple[bool, uuid.UUID]:
+        if not request.headers.get("Authorization"):
+            return HttpResponse(
+                "Not Authorized",
+                content_type="text/plain",
+                status=401,
+            )
+
         access_token = request.headers["Authorization"].split()[-1]
         signer = TimestampSigner(config.jwt_secret)
         if not signer.validate(access_token):
