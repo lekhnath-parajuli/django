@@ -28,6 +28,12 @@ def register(request):
         password=helpers.encode_password(password=data.password.encode("UTF-8")),
     )
 
+    models.Contact.objects.create(
+        name=data.name,
+        user_id=user,
+        phone_number=data.phone_number
+    )
+
     serialized_user = serializers.User(
         id=user.id,
         name=user.name,
