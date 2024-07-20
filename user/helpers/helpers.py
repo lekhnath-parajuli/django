@@ -21,7 +21,7 @@ def generate_jwt_token(user_id):
 
 
 def validate_access_token(func) -> Tuple[bool, uuid.UUID]:
-    def validator(request) -> Tuple[bool, uuid.UUID]:
+    def validator(request, **kwargs) -> Tuple[bool, uuid.UUID]:
         access_token = request.headers["Authorization"].split()[-1]
         signer = TimestampSigner(config.jwt_secret)
         if not signer.validate(access_token):
@@ -38,7 +38,7 @@ def validate_access_token(func) -> Tuple[bool, uuid.UUID]:
         )
 
         request.META["PROFILE"] = jwt_meta["uid"]
-        return func(request)
+        return func(request, **kwargs)
 
     return validator
 

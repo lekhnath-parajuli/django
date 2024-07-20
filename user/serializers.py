@@ -34,3 +34,10 @@ class CreateContact(SerializerBase):
     name: str
     is_spam: bool = False
     phone_number: str
+
+
+class Contact(SerializerBase):
+    id: uuid.UUID
+    name: str
+    is_spam: bool = False
+    phone_number: str

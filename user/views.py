@@ -1,4 +1,6 @@
 import json
+import uuid
+from funcy import project
 from rest_framework.decorators import api_view
 from django import core
 from user import models
@@ -7,9 +9,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from user.helpers import helpers
 from django.views.decorators.csrf import csrf_exempt
-
-
-# Create your views here.
 
 
 @csrf_exempt
@@ -75,7 +74,7 @@ def login(request):
 @csrf_exempt
 @api_view(["POST"])
 @helpers.validate_access_token
-def contact_crud(request):
+def contact_create(request):
     user_id = request.META["PROFILE"]
     data = serializers.CreateContact(**{**json.loads(request.body)})
     contact = models.Contact.objects.filter(phone_number=data.phone_number).first()
@@ -101,7 +100,34 @@ def contact_crud(request):
         )
 
     return HttpResponse(
-        helpers.json_response(serializers.CreateContact(**contact.__dict__).__dict__),
+        helpers.json_response(serializers.Contact(**contact.__dict__).__dict__),
+        content_type="application/json",
+        status=200,
+    )
+
+
+@csrf_exempt
+@api_view(["POST"])
+@helpers.validate_access_token
+def contact_update(request, id: uuid.UUID):
+    user_id = request.META["PROFILE"]
+    update_input = project(json.loads(request.body), ["name", "is_spam"])
+    user_contact = models.UserContact.objects.filter(
+        user_id=user_id, contact_id=id
+    ).first()
+
+    if not user_contact:
+        return HttpResponse(
+            "Contact not found",
+            content_type="text/plain",
+            status=403,
+        )
+
+    models.Contact.objects.filter(id=id).update(**update_input)
+    contact = models.Contact.objects.get(id=id)
+
+    return HttpResponse(
+        helpers.json_response(serializers.Contact(**contact.__dict__).__dict__),
         content_type="application/json",
         status=200,
     )
