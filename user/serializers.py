@@ -28,3 +28,9 @@ class User(SerializerBase):
     name: str
     email: str
     phone_number: str
+
+
+class CreateContact(SerializerBase):
+    name: str
+    is_spam: bool = False
+    phone_number: str

@@ -32,21 +32,15 @@ def register(request):
         ),
     )
 
-    models.Contact.objects.create(
+    contact = models.Contact.objects.create(
         name=data.name,
-        user_id=user,
         phone_number=data.phone_number,
     )
 
-    serialized_user = serializers.User(
-        id=user.id,
-        name=user.name,
-        email=user.email,
-        phone_number=user.phone_number,
-    )
+    models.UserContact.objects.create(user_id=user, contact_id=contact)
 
     return HttpResponse(
-        helpers.json_response(serialized_user.__dict__()),
+        helpers.json_response(serializers.User(user.__dict__()).__dict__()),
         content_type="application/json",
         status=200,
     )
@@ -54,7 +48,6 @@ def register(request):
 
 @csrf_exempt
 @api_view(["POST"])
-@helpers.validate_access_token
 def login(request):
     data = serializers.Login(**json.loads(request.body))
     user = models.User.objects.filter(
@@ -81,5 +74,34 @@ def login(request):
 
 @csrf_exempt
 @api_view(["POST"])
-def create_contact(request):
-    print("hi")
+@helpers.validate_access_token
+def contact_crud(request):
+    user_id = request.META["PROFILE"]
+    data = serializers.CreateContact(**{**json.loads(request.body)})
+    contact = models.Contact.objects.filter(phone_number=data.phone_number).first()
+    contact_id = getattr(contact, "id", None)
+    user_contact = models.UserContact.objects.filter(contact_id=contact_id).first()
+
+    if contact and user_contact:
+        return HttpResponse(
+            "Contact already Exists",
+            content_type="text/plain",
+            status=403,
+        )
+
+    if not contact:
+        contact = models.Contact.objects.create(
+            name=data.name, phone_number=data.phone_number
+        )
+
+    if not user_contact:
+        models.UserContact.objects.create(
+            contact_id=contact,
+            user_id=models.User.objects.get(id=user_id),
+        )
+
+    return HttpResponse(
+        helpers.json_response(serializers.CreateContact(**contact.__dict__).__dict__),
+        content_type="application/json",
+        status=200,
+    )
