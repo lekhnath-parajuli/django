@@ -7,6 +7,8 @@ urlpatterns = [
     path("ping", lambda *args, **kwargs: HttpResponse("pong")),
     path("register", view=views.register),
     path("login", view=views.login),
+    path("login", view=views.login),
+    path("contacts", view=views.contacts),
     path("contact", view=views.contact_create),
     path("contact/<str:id>", view=views.contact_update),
 ]

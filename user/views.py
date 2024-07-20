@@ -2,10 +2,8 @@ import json
 import uuid
 from funcy import project
 from rest_framework.decorators import api_view
-from django import core
 from user import models
 from user import serializers
-from django.shortcuts import render
 from django.http import HttpResponse
 from user.helpers import helpers
 from django.views.decorators.csrf import csrf_exempt
@@ -128,6 +126,28 @@ def contact_update(request, id: uuid.UUID):
 
     return HttpResponse(
         helpers.json_response(serializers.Contact(**contact.__dict__).__dict__),
+        content_type="application/json",
+        status=200,
+    )
+
+
+@csrf_exempt
+@api_view(["GET"])
+@helpers.validate_access_token
+def contacts(request):
+    fields = ["id", "name", "is_spam", "phone_number"]
+    user_id = request.META["PROFILE"]
+
+    contacts = []
+    for contact in models.Contact.objects.filter(
+        id__in=models.UserContact.objects.filter(user_id=user_id).values_list(
+            "contact_id", flat=True
+        )
+    ):
+        contacts.append(project(contact.__dict__, fields))
+
+    return HttpResponse(
+        helpers.json_response(contacts),
         content_type="application/json",
         status=200,
     )
