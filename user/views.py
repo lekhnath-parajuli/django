@@ -54,6 +54,7 @@ def register(request):
 
 @csrf_exempt
 @api_view(["POST"])
+@helpers.validate_access_token
 def login(request):
     data = serializers.Login(**json.loads(request.body))
     user = models.User.objects.filter(
@@ -76,3 +77,9 @@ def login(request):
         content_type="application/json",
         status=200,
     )
+
+
+@csrf_exempt
+@api_view(["POST"])
+def create_contact(request):
+    print("hi")
