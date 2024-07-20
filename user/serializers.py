@@ -11,7 +11,15 @@ class SerializerBase(BaseModel):
         populate_by_name = True
 
 
-class User(SerializerBase):
-    id: Optional[uuid.UUID] = None
+class Registration(SerializerBase):
+    name: Union[str]
+    password: str
+    phone_number: str
     email: Union[str, None] = None
-    name: Union[str, None]
+
+
+class User(SerializerBase):
+    id: uuid.UUID
+    name: str
+    email: str
+    phone_number: str
