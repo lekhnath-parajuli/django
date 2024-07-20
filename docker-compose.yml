@@ -1,0 +1,9 @@
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python -m manage runserver
+    ports:
+      - "8000:8000"
