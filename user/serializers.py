@@ -29,15 +29,8 @@ class User(SerializerBase):
     email: str
     phone_number: str
 
-
-class CreateContact(SerializerBase):
-    name: str
-    is_spam: bool = False
-    phone_number: str
-
-
 class Contact(SerializerBase):
-    id: uuid.UUID
+    id: Union[uuid.UUID, None] = None
     name: str
     is_spam: bool = False
     phone_number: str

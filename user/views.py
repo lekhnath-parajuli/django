@@ -74,7 +74,7 @@ def login(request):
 @helpers.validate_access_token
 def contact_create(request):
     user_id = request.META["PROFILE"]
-    data = serializers.CreateContact(**{**json.loads(request.body)})
+    data = serializers.Contact(**{**json.loads(request.body)})
     contact = models.Contact.objects.filter(phone_number=data.phone_number).first()
     contact_id = getattr(contact, "id", None)
     user_contact = models.UserContact.objects.filter(contact_id=contact_id).first()
