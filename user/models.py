@@ -23,6 +23,7 @@ class Contact(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, primary_key=False, blank=False, null=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    is_spam = models.BooleanField(primary_key=False, default=False)
     phone_number = models.CharField(
         max_length=100, primary_key=False, blank=False, null=False
     )
