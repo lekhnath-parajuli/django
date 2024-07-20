@@ -13,4 +13,4 @@ RUN python -m manage makemigrations search
 RUN python -m manage migrate user
 RUN python -m manage migrate search
 
-CMD python -m manage runserver
+CMD python -m manage runserver 0.0.0.0:8000
