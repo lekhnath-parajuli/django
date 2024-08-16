@@ -1,9 +1,11 @@
 import graphene
 from user.gq.mutations.register import RegisterResponse
+from user.gq.mutations.login import LoginResponse
 
 
 class Mutation(graphene.ObjectType):
     register = RegisterResponse.Field()
+    login = LoginResponse.Field()
 
 
 class Query(graphene.ObjectType):

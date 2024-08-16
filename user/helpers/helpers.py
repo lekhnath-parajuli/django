@@ -58,7 +58,7 @@ class JSONEncoder(json.JSONEncoder):
 
 
 def encode_password(password: str) -> str:
-    return hashlib.sha256(password).hexdigest()
+    return hashlib.sha256((password or "").strip().encode("UTF-8")).hexdigest()
 
 
 def json_response(data: dict):

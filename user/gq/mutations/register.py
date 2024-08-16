@@ -23,15 +23,21 @@ class RegisterResponse(BaseMutationType, graphene.Mutation):
 
     @classmethod
     def mutate(cls, root, info, **kwargs):
-        requested_user = models.User(**kwargs)
-        if not models.User.objects.filter(phone=requested_user.phone).first():
-            return success(
+        user = models.User(**kwargs)
+        contact = models.Contact(name=user.name, phone=user.phone)
+
+        if models.User.objects.filter(phone=user.phone).first():
+            return bad_request(
                 operation="register",
                 model="user",
-                data=requested_user.save() or requested_user,
+                message="User already Exists",
             )
-        return bad_request(
+
+        user.save()
+        contact.save()
+        models.UserContact(user_id=user, contact_id=contact)
+        return success(
             operation="register",
             model="user",
-            message="User already Exists",
+            data=user,
         )

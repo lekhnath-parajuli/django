@@ -5,6 +5,7 @@ type Query {
 
 type Mutation {
   register(email: String, name: String!, password: String!, phone: String!): RegisterResponse
+  login(password: String!, phone: String!): LoginResponse
 }
 
 type RegisterResponse {
@@ -27,3 +28,15 @@ Leverages the internal Python implementation of UUID (uuid.UUID) to provide nati
 in fields, resolvers and input.
 """
 scalar UUID
+
+type LoginResponse {
+  code: Int
+  status: String
+  message: String
+  messageKey: String
+  data: Token
+}
+
+type Token {
+  accessToken: String
+}
