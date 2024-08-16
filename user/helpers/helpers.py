@@ -20,6 +20,35 @@ def generate_jwt_token(user_id):
     jwt_token = jwt.encode(token_metadata, key=config.jwt_secret)
     return TimestampSigner(config.jwt_secret).sign(jwt_token).decode("utf-8")
 
+def validate_gql_access_token(func) -> Tuple[bool, uuid.UUID]:
+    def validator(self, root, info, **kwargs) -> Tuple[bool, uuid.UUID]:
+        if not info.context.headers.get("Authorization"):
+            return bad_request(
+                operation="",
+                model="",
+                message="Not Authorized",
+                message_key="not-authorized",
+            )
+
+        access_token = info.context.headers["Authorization"].split()[-1]
+        signer = TimestampSigner(config.jwt_secret)
+        if not signer.validate(access_token):
+            return bad_request(
+                operation="",
+                model="",
+                message="Token Expired",
+                message_key="token-expired",
+            )
+
+        jwt_meta = jwt.decode(
+            signer.unsign(access_token, max_age=config.token_expiry).decode("utf-8"),
+            key=config.jwt_secret,
+            algorithms="HS256",
+        )
+
+        return func(self, info, user_id=jwt_meta["uid"], **kwargs)
+
+    return validator
 
 def validate_access_token(func) -> Tuple[bool, uuid.UUID]:
     def validator(request, **kwargs) -> Tuple[bool, uuid.UUID]:

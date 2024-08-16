@@ -18,6 +18,7 @@ type Token {
 
 type Mutation {
   register(email: String, name: String!, password: String!, phone: String!): RegisterResponse
+  createContact(isSpam: String, name: String!, phone: String!): CreateContact
 }
 
 type RegisterResponse {
@@ -40,3 +41,17 @@ Leverages the internal Python implementation of UUID (uuid.UUID) to provide nati
 in fields, resolvers and input.
 """
 scalar UUID
+
+type CreateContact {
+  code: Int
+  status: String
+  message: String
+  messageKey: String
+  data: Contact
+}
+
+type Contact {
+  id: UUID!
+  name: String!
+  phone: String!
+}
