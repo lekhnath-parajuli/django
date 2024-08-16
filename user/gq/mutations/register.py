@@ -35,7 +35,3 @@ class RegisterResponse(BaseMutationType, graphene.Mutation):
             model="user",
             message="User already Exists",
         )
-
-
-class Mutation(graphene.ObjectType):
-    register = RegisterResponse.Field()
