@@ -1,7 +1,7 @@
 import graphene
 
 
-class BaseMutationType(object):
+class BaseResponseType(object):
     code = graphene.Int()
     status = graphene.String()
     message = graphene.String()

@@ -1,12 +1,12 @@
 import graphene
 from user import models
 from user.helpers import helpers
-from user.gq.models import BaseMutationType
+from user.gq.models import BaseResponseType
 from graphene_django import DjangoObjectType
 from infra.response import success, bad_request
 
 
-class RegisterResponse(BaseMutationType, graphene.Mutation):
+class RegisterResponse(BaseResponseType, graphene.Mutation):
     class Register(DjangoObjectType):
         class Meta:
             model = models.User
