@@ -32,9 +32,9 @@ class LoginResponse(BaseMutationType, graphene.Mutation):
                 message="Wrong username/password",
             )
         return success(
-            operation="register",
+            operation="login",
             model="user",
             data={
-                "accessToken": helpers.generate_jwt_token(user_id=str(matched_user.id))
+                "access_token": helpers.generate_jwt_token(user_id=str(matched_user.id))
             },
         )
