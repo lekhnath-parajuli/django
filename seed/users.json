@@ -1,0 +1,29 @@
+[
+{
+  "model": "user.user",
+  "pk": "7619a0c6-7800-4c63-bb9b-0262bc5f2102",
+  "fields": {
+    "name": "Lekhnath",
+    "email": "lekhnath@instahyre.com",
+    "phone_number": "+91 0000000000",
+    "password": "a63b530fe4779921d3f9cd16f5827efbf363c123465cabaf5e30c4f4bdcbbc16"
+  }
+},
+{
+  "model": "user.contact",
+  "pk": "c9ef9faa-d8da-4e13-b54c-4f889b3d4ad9",
+  "fields": {
+    "name": "Lekhnath",
+    "is_spam": false,
+    "phone_number": "+91 0000000000"
+  }
+},
+{
+  "model": "user.usercontact",
+  "pk": 1,
+  "fields": {
+    "user_id": "7619a0c6-7800-4c63-bb9b-0262bc5f2102",
+    "contact_id": "c9ef9faa-d8da-4e13-b54c-4f889b3d4ad9"
+  }
+}
+]

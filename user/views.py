@@ -37,7 +37,7 @@ def register(request):
     models.UserContact.objects.create(user_id=user, contact_id=contact)
 
     return HttpResponse(
-        helpers.json_response(serializers.User(user.__dict__).__dict__),
+        helpers.json_response(serializers.User(**user.__dict__).__dict__),
         content_type="application/json",
         status=200,
     )
