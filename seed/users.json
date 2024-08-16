@@ -1,17 +1,17 @@
 [
 {
   "model": "user.user",
-  "pk": "6b8a16dc-3273-464e-8ce8-654c5451a95f",
+  "pk": "bd43bc48-d0ed-4890-9127-8cf28385a4f6",
   "fields": {
     "name": "Lekhnath",
     "email": "",
     "phone": "1234567890",
-    "password": "Lekhnath-parajuli123"
+    "password": "a63b530fe4779921d3f9cd16f5827efbf363c123465cabaf5e30c4f4bdcbbc16"
   }
 },
 {
   "model": "user.contact",
-  "pk": "79658526-3527-4cd1-951e-14704842c79c",
+  "pk": "5cee50a0-b41c-4b1c-90dc-598306a21870",
   "fields": {
     "name": "Lekhnath",
     "is_spam": false,

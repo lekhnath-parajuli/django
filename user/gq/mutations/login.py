@@ -25,7 +25,6 @@ class LoginResponse(BaseMutationType, graphene.Mutation):
             phone=credentials.phone, password=pwd_hash
         ).first()
 
-        helpers.convert_to_E164_format(phone=credentials.phone)
         if not matched_user:
             return bad_request(
                 operation="login",

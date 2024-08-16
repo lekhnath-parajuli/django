@@ -1,6 +1,6 @@
 import graphene
-import phonenumbers
 from user import models
+from user.helpers import helpers
 from user.gq.models import BaseMutationType
 from graphene_django import DjangoObjectType
 from infra.response import success, bad_request
@@ -25,6 +25,7 @@ class RegisterResponse(BaseMutationType, graphene.Mutation):
     @classmethod
     def mutate(cls, root, info, **kwargs):
         user = models.User(**kwargs)
+        user.password = helpers.encode_password(password=user.password)
         contact = models.Contact(name=user.name, phone=user.phone)
 
         if models.User.objects.filter(phone=user.phone).first():
