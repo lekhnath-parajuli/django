@@ -51,6 +51,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "middlewares.access_control.AccessControl",
 ]
 
 ROOT_URLCONF = "api.urls"

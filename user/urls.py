@@ -7,7 +7,7 @@ from graphene_django.views import GraphQLView
 
 
 urlpatterns = [
-    # path("gq", GraphQLView.as_view(graphiql=True, schema=schema)),
+    path("gq", GraphQLView.as_view(graphiql=True, schema=schema)),
     path("ping", lambda *args, **kwargs: HttpResponse("pong")),
     path("register", view=views.register),
     path("login", view=views.login),

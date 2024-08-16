@@ -2,6 +2,10 @@ import graphene
 
 
 class Query(graphene.ObjectType):
-    ping = graphene.String(description='pong', to=graphene.String())
-    # def ping(self, args, info):
-    #     return "pong"
+    ping = graphene.String(
+        description="validate server active or not",
+        to=graphene.String(),
+    )
+
+    def resolve_ping(self, info, **kwargs):
+        return "Pong"

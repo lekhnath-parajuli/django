@@ -1,4 +1,29 @@
 type Query {
-  """pong"""
+  """validate server active or not"""
   ping(to: String): String
 }
+
+type Mutation {
+  register(email: String, name: String!, password: String!, phone: String!): RegisterResponse
+}
+
+type RegisterResponse {
+  code: Int
+  status: String
+  message: String
+  messageKey: String
+  data: Register
+}
+
+type Register {
+  id: UUID!
+  name: String!
+  email: String!
+  phone: String!
+}
+
+"""
+Leverages the internal Python implementation of UUID (uuid.UUID) to provide native UUID objects
+in fields, resolvers and input.
+"""
+scalar UUID
