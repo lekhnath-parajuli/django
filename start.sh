@@ -9,5 +9,7 @@ python -m manage migrate search
 # load user seed
 python manage.py loaddata seed/users.json
 
+# python -m manage graphql_schema --schema user.gq.schema.schema --out schema.graphql
+
 # start app
 python -m manage runserver 0.0.0.0:8000
