@@ -2,6 +2,7 @@ funcy==2.0
 PyJWT==2.8.0
 itsdangerous==2.2.0
 django==5.0.7
+django-seed==0.3.1
 django-livesync==0.5
 pydantic==2.8.2
 pydantic-settings==2.3.4
