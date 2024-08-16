@@ -1,21 +1,21 @@
 [
 {
   "model": "user.user",
-  "pk": "c5587748-cc9c-4455-a182-18cf43e5260e",
+  "pk": "6b8a16dc-3273-464e-8ce8-654c5451a95f",
   "fields": {
     "name": "Lekhnath",
     "email": "",
-    "phone": "+91 0000000000",
+    "phone": "1234567890",
     "password": "Lekhnath-parajuli123"
   }
 },
 {
   "model": "user.contact",
-  "pk": "b3ab7dd8-d500-4878-afb3-ef7f49e6286a",
+  "pk": "79658526-3527-4cd1-951e-14704842c79c",
   "fields": {
     "name": "Lekhnath",
     "is_spam": false,
-    "phone": "+91 0000000000"
+    "phone": "1234567890"
   }
 }
 ]

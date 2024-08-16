@@ -5,6 +5,7 @@ import json
 import hashlib
 from typing import Tuple
 from Config import config
+from pytz import country_timezones
 from django.http import HttpResponse
 from itsdangerous import TimestampSigner
 
@@ -63,3 +64,21 @@ def encode_password(password: str) -> str:
 
 def json_response(data: dict):
     return json.dumps(data, cls=JSONEncoder)
+
+
+def get_timezone_country_code_map():
+    timezone_to_country_code_map = {}
+    for country_code in country_timezones:
+        for timezone in country_timezones[country_code]:
+            timezone_to_country_code_map[timezone] = country_code
+    timezone_to_country_code_map["GMT"] = "US"
+    return timezone_to_country_code_map
+
+
+def convert_to_E164_format(phone):
+    if not phone:
+        return phone
+    return phonenumbers.format_number(
+        phonenumbers.parse(phone, code),
+        phonenumbers.PhoneNumberFormat.E164,
+    )
