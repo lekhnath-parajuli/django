@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     "user",
     "search",
-    "django_seed",
+    "graphene_django",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
